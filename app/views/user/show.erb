@@ -1,7 +1,10 @@
-<h3>Welcome <%=@user.username%></h3>
-links or buttons:
+<h3>Welcome, <%=@user.username%>!</h3>
 
+
+<p><a href="/claims/new_claim">Make a new claim</a></p>
+<p><a href="/claims/<%=@user.id%>/show">View all past claims</a></p>
 -make a new claim
 -view all past claims
 -search for a subject
+-logout
 
