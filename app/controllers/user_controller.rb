@@ -1,7 +1,12 @@
 class UserController < ApplicationController
   
   get "/user/signup" do
-    erb :"user/signup"
+    if logged_in?
+      @user = User.find_by(username: session[:user_id])
+      redirect "/user/#{@user.id}"
+    else
+      erb :"user/signup"
+    end
   end
   
   get "/user/login" do
@@ -10,6 +15,6 @@ class UserController < ApplicationController
   
   get "/user/:id" do
     @user = User.find(params[:id])
-    erb :"user/index"
+    erb :"user/show"
   end
 end
