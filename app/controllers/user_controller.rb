@@ -28,6 +28,21 @@ class UserController < ApplicationController
     end
   end
   
+  post '/login' do
+    if params[:username] != "" && params[:password] != ""
+      @user = User.find_by(username: params[:username])
+      if @user.authenticate(params[:password])
+        session[:user_id] = @user.username
+        redirect "/user/#{@user.id}"
+      else 
+        redirect "/signup"
+      end
+    else
+      redirect "/signup"
+    end
+  end
+  
+  
   get "/user/:id" do
     @user = User.find(params[:id])
     erb :"user/show"
