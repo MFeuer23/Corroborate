@@ -56,6 +56,8 @@ class UserController < ApplicationController
     erb :"user/show"
   end
   
-
-  
+  get "/user/:id/claims" do
+    @user = User.find(params[:id])
+    erb :"user/claims"
+  end
 end
