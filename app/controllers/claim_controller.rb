@@ -3,10 +3,7 @@ require 'rack-flash'
 class ClaimController < ApplicationController
 
   use Rack::Flash
-  get '/songs' do
-    @songs = Song.all
-    erb :'/songs/index'
-  end
+
   
   get "/claims/new_claim" do
     if logged_in?
@@ -43,12 +40,29 @@ class ClaimController < ApplicationController
     end
   end
   
-  get "/claims/:id/claims" do
-    @user = User.find(params[:id])
-    if logged_in? && current_user == @user
-      erb :"claims/show"
+  get "/claims" do
+    
+    if logged_in?
+      @user = current_user
+      erb :"claims/claims"
     else
       redirect "/"
     end
   end
+  
+  get "/claims/:id" do
+    if logged_in?
+
+      @user = current_user
+      @claim = Claim.find(params[:id])
+      if @user.claims.include?(@claim)
+        erb :"claims/show"
+      else
+        redirect "/claims"
+      end
+    else
+      redirect "/"
+    end
+  end
+  
 end
