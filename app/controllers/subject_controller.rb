@@ -2,6 +2,7 @@ class SubjectController < ApplicationController
 
   get "/subjects/search" do
     if logged_in?
+      @user = current_user
       erb :"/subjects/search_subjects"
     else
       redirect "/"

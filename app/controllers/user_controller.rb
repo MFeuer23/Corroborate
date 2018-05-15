@@ -60,12 +60,5 @@ class UserController < ApplicationController
     end
   end
 
-  get "/user/:id/claims" do
-    if logged_in?
-      @user = User.find(params[:id])
-      erb :"user/claims"
-    else
-      redirect "/"
-    end
-  end
+
 end

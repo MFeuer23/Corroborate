@@ -42,4 +42,13 @@ class ClaimController < ApplicationController
       redirect "/"
     end
   end
+  
+  get "/claims/:id/claims" do
+    @user = User.find(params[:id])
+    if logged_in? && current_user == @user
+      erb :"claims/show"
+    else
+      redirect "/"
+    end
+  end
 end
