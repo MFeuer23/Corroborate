@@ -1,8 +1,17 @@
-<h3><%= @subject.name %></h3>
-<h2>Claims:</h2>
+<h2><%= @subject.name %></h2>
+<h3>Claims:</h3>
 
-<% @subject.claims.each do |claim| %>
-  <p><%= claim.created_at %></p>
-  <p><%= claim.location %></p>
-  <p><%= claim.content %></p>
+<% @subject.claims.each_with_index do |claim, i| %>
+  <h4>Claim <%=i + 1%></h4>
+  <p>Date: <%= claim.created_at %></p>
+  <p>Location: <%= claim.location %></p>
+  <p>What Happened: <%= claim.content %></p>
 <% end %>
+
+
+<br>
+<br>
+<p><a href="/claims/new_claim">Make a new claim</a></p>
+<p><a href="/user/<%=@user.id%>/claims">View all past claims</a></p>
+<p><a href="/subjects/search">Search subjects by name</a></p>
+<p><a href="/user/logout">Log out</a></p>
