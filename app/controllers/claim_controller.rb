@@ -1,5 +1,13 @@
+require 'rack-flash'
+
 class ClaimController < ApplicationController
 
+  use Rack::Flash
+  get '/songs' do
+    @songs = Song.all
+    erb :'/songs/index'
+  end
+  
   get "/claims/new_claim" do
     if logged_in?
       erb :"claims/new_claim"
@@ -25,7 +33,8 @@ class ClaimController < ApplicationController
         end
         redirect "/subjects/#{@subject.slug}"
       else
-        redirect "/claims/new_claim"
+          flash[:warning] = "All Fields Must Be Complete."
+          redirect "/claims/new_claim"
       end
     else
       redirect "/"

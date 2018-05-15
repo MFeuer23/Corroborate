@@ -13,3 +13,9 @@
 <br>
 <input type="submit" value="submit" id="submit">
 </form>
+
+<% if flash.has?(:warning) %>
+  <%= flash[:warning] %>
+<% end %>
+
+</div>
