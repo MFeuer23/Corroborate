@@ -1,7 +1,10 @@
 <h3>All Claims posted by <%= @user.username %></h3>
 
-<% @user.claims.each do |claim| %>
-
+<% @user.claims.each_with_index do |claim, i| %>
+  <h4>Claim <%=i + 1%></h4>
+  <p>Date: <%= claim.created_at %></p>
+  <p>Location: <%= claim.location %></p>
+  <p>What Happened: <%= claim.content %></p>
 <% end %>
 
 <p><a href="/user/logout">Log out</a></p>

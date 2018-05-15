@@ -24,6 +24,8 @@ class ClaimController < ApplicationController
         @claim = Claim.create(params[:claim])
         @subject.claims << @claim
         @subject.save
+        @user.claims << @claim
+        @user.save
         if params[:user][:contact] == "yes"
           @claim.contact = @user.email
           @claim.save
