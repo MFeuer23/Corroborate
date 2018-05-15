@@ -13,6 +13,9 @@ class ApplicationController < Sinatra::Base
     erb :"/index"
   end
 
+  get '/terms' do
+    erb :"/terms"
+  end
 
   helpers do
     def logged_in?
