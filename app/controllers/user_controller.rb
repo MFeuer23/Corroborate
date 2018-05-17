@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class UserController < ApplicationController
+
+  use Rack::Flash
 
   get "/user/signup" do
     if logged_in?
@@ -15,7 +19,8 @@ class UserController < ApplicationController
       session[:user_id] = @user.username
       redirect "/user/#{@user.id}"
     else
-      redirect "/signup"
+      flash[:warning] = "All Fields Must Be Complete."
+      redirect "/user/signup"
     end
   end
 

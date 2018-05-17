@@ -7,3 +7,6 @@
   <input type="submit" value="Sign Up" id="Sign Up">
 
 </form>
+<% if flash.has?(:warning) %>
+  <%= flash[:warning] %>
+<% end %>
