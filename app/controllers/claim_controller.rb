@@ -4,7 +4,7 @@ class ClaimController < ApplicationController
 
   use Rack::Flash
 
-  
+
   get "/claims/new_claim" do
     if logged_in?
       erb :"claims/new_claim"
@@ -39,9 +39,9 @@ class ClaimController < ApplicationController
       redirect "/"
     end
   end
-  
+
   get "/claims" do
-    
+
     if logged_in?
       @user = current_user
       erb :"claims/claims"
@@ -49,7 +49,7 @@ class ClaimController < ApplicationController
       redirect "/"
     end
   end
-  
+
   get "/claims/:id" do
     if logged_in?
 
@@ -64,5 +64,19 @@ class ClaimController < ApplicationController
       redirect "/"
     end
   end
-  
+
+  get "/claims/:id/edit" do
+    if logged_in?
+      @user = current_user
+      @claim = Claim.find(params[:id])
+      if @user.claims.include?(@claim)
+        erb :"/claims/edit_claim"
+      else
+        redirect "/user/:id"
+      end
+    else
+      redirect '/'
+    end
+  end
+
 end
