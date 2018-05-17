@@ -79,4 +79,31 @@ class ClaimController < ApplicationController
     end
   end
 
+  post "/claims/:id" do
+    if logged_in?
+      @user = current_user
+      if params[:agree] == "yes" && params[:subject][:name] != "" && params[:claim][:location] != "" && params[:claim][:content] !="" && params[:user][:content] != ""
+        @claim = Claim.find(params[:id])
+        @subject = Subject.find_by(name: params[:subject][:name])
+        @claim.subject = @subject
+        @claim.location = params[:claim][:location]
+        @claim.content = params[:claim][:content]
+        @claim.save
+        if params[:user][:contact] == "yes"
+          @claim.contact = @user.email
+          @claim.save
+        else
+          @claim.contact = "no contact provided"
+          @claim.save
+        end
+        redirect "/subjects/#{@subject.slug}"
+      else
+          flash[:warning] = "All Fields Must Be Complete."
+          redirect "/claims/#{@claim.id}/edit"
+      end
+    else
+      redirect "/"
+    end
+  end
+
 end
