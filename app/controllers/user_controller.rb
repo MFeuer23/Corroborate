@@ -15,9 +15,14 @@ class UserController < ApplicationController
 
   post '/signup' do
     if params[:email] != "" && params[:username] != "" && params[:password] != ""
-      @user = User.create(email: params[:email], username: params[:username], password: params[:password])
-      session[:user_id] = @user.username
-      redirect "/user/#{@user.id}"
+      if User.find_by(username: params[:username])
+        flash[:warning] = "Username is taken, please enter a unique username."
+        redirect "/user/signup"
+      else
+        @user = User.create(email: params[:email], username: params[:username], password: params[:password])
+        session[:user_id] = @user.username
+        redirect "/user/#{@user.id}"
+      end
     else
       flash[:warning] = "All Fields Must Be Complete."
       redirect "/user/signup"
