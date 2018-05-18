@@ -3,6 +3,7 @@
   <p>Date of Claim: <%= @claim.created_at %></p>
   <p>Location: <%= @claim.location %></p>
   <p>What Happened: <%= @claim.content %></p>
+  <p><a href="/claims/<%=@claim.id%>/edit">Edit</a>|<a href="/claims/<%=@claim.id%>/delete">Delete</a></p>
 
 
 <br>
