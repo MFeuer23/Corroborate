@@ -106,4 +106,18 @@ class ClaimController < ApplicationController
     end
   end
 
+  get "/claims/:id/delete" do
+    if logged_in?
+      @user = current_user
+      @claim = Claim.find(params[:id])
+      if @user.claims.include?(@claim)
+        @claim.delete
+      else
+        redirect "/claims/#{@claim.id}"
+      end
+    else
+      redirect "/"
+    end
+  end
+
 end
