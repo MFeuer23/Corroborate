@@ -1,10 +1,12 @@
   
-<h3>Find Corroborators</h3>
+<h2>Find Corroborators</h2>
   <% @user.claims.each do |users_claim| %>
+    <p>Corroborator contact for <a href="/subjects/<%=users_claim.subject.slug%>"><%= users_claim.subject.name %></a></p>
     <% users_claim.subject.claims.each do |subjects_claim| %>
-       <p>Corroborators for <%= users_claim.subject.name: %></p>
-       <ul>
-         <li><%= subjects_claim.user.contact %></li>
-       </ul>
+       <% if subjects_claim.user != @user %>
+         <ul>
+           <li><%= subjects_claim.contact %></li>
+         </ul>
+        <% end %>
     <%  end %>
   <% end %>
