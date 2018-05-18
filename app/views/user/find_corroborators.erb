@@ -1,0 +1,10 @@
+  
+<h3>Find Corroborators</h3>
+  <% @user.claims.each do |users_claim| %>
+    <% users_claim.subject.claims.each do |subjects_claim| %>
+       <p>Corroborators for <%= users_claim.subject.name: %></p>
+       <ul>
+         <li><%= subjects_claim.user.contact %></li>
+       </ul>
+    <%  end %>
+  <% end %>
