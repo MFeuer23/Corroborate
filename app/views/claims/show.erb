@@ -1,6 +1,6 @@
 <h3>Claim</h3>
-
-  <p>Date: <%= @claim.created_at %></p>
+  <h2><a href="/subjects/<%=@claim.subject.slug%>"><%=@claim.subject.name%></a></h2>
+  <p>Date of Claim: <%= @claim.created_at %></p>
   <p>Location: <%= @claim.location %></p>
   <p>What Happened: <%= @claim.content %></p>
 

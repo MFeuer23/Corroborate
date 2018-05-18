@@ -2,8 +2,8 @@
 <h3>Claims:</h3>
 
 <% @subject.claims.each_with_index do |claim, i| %>
-  <h4>Claim <%=i + 1%></h4>
-  <p>Date: <%= claim.created_at %></p>
+  <h4><a href="/claims/<%=claim.id%>">Claim <%=i + 1%></a></h4>
+  <p>Date of Claim: <%= claim.created_at %></p>
   <p>Location: <%= claim.location %></p>
   <p>What Happened: <%= claim.content %></p>
 <% end %>
