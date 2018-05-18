@@ -1,10 +1,11 @@
 <h3>All Claims posted by <%= @user.username %></h3>
 
 <% @user.claims.each_with_index do |claim, i| %>
-  <h4><%=claim.subject.name%></h4>
+  <h2><a href="/subjects/<%=claim.subject.slug%>"><%=claim.subject.name%></a></h2>
   <p>Date: <%= claim.created_at %></p>
   <p>Location: <%= claim.location %></p>
   <p>What Happened: <%= claim.content %></p>
+  <p><a href="/claims/<%=claim.id%>/edit">Edit</a>|<a href="/claims/<%=claim.id%>/delete">Delete</a></p>
 <% end %>
 
 <br>

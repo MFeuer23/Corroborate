@@ -82,9 +82,9 @@ class ClaimController < ApplicationController
   post "/claims/:id" do
     if logged_in?
       @user = current_user
+      @claim = Claim.find(params[:id])
       if params[:agree] == "yes" && params[:subject][:name] != "" && params[:claim][:location] != "" && params[:claim][:content] !="" && params[:user][:content] != ""
-        @claim = Claim.find(params[:id])
-        @subject = Subject.find_by(name: params[:subject][:name])
+        @subject = Subject.find_or_create_by(name: params[:subject][:name])
         @claim.subject = @subject
         @claim.location = params[:claim][:location]
         @claim.content = params[:claim][:content]
@@ -96,7 +96,7 @@ class ClaimController < ApplicationController
           @claim.contact = "no contact provided"
           @claim.save
         end
-        redirect "/subjects/#{@subject.slug}"
+        redirect "/claims/#{@claim.id}"
       else
           flash[:warning] = "All Fields Must Be Complete."
           redirect "/claims/#{@claim.id}/edit"
@@ -112,6 +112,7 @@ class ClaimController < ApplicationController
       @claim = Claim.find(params[:id])
       if @user.claims.include?(@claim)
         @claim.delete
+        redirect "/claims"
       else
         redirect "/claims/#{@claim.id}"
       end
