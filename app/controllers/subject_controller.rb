@@ -8,12 +8,12 @@ class SubjectController < ApplicationController
       redirect "/"
     end
   end
-  
+
   post "/subjects/search" do
     if logged_in?
       @user = current_user
-      if Subject.find_by(name: params[:name])
-        @subject = Subject.find_by(name: params[:name])
+      if Subject.find_by(name: params[:name].titleize)
+        @subject = Subject.find_by(name: params[:name].titleize)
         erb :"/subjects/show"
       else
         erb :"/subjects/not_found"
@@ -22,7 +22,7 @@ class SubjectController < ApplicationController
       redirect "/"
     end
   end
-  
+
   get "/subjects/:slug" do
     if logged_in?
       @user = current_user

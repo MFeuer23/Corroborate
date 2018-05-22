@@ -83,7 +83,7 @@ class ClaimController < ApplicationController
       @user = current_user
       @claim = Claim.find(params[:id])
       if params[:agree] == "yes" && params[:subject][:name] != "" && params[:claim][:location] != "" && params[:claim][:content] !="" && params[:user][:content] != ""
-        @subject = Subject.find_or_create_by(name: params[:subject][:name])
+        @subject = Subject.find_or_create_by(name: params[:subject][:name].titleize)
         @claim.subject = @subject
         @claim.location = params[:claim][:location]
         @claim.content = params[:claim][:content]
