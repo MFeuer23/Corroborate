@@ -6,8 +6,8 @@ class UserController < ApplicationController
 
   get "/user/signup" do
     if logged_in?
-      @user = current_user
-      redirect "/user/#{@user.id}"
+      session.clear
+      erb :"user/signup"
     else
       erb :"user/signup"
     end
@@ -60,7 +60,7 @@ class UserController < ApplicationController
       redirect "/"
     end
   end
-  
+
   get "/user/find_corroborators" do
     if logged_in?
       @user = current_user
