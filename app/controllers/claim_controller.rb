@@ -26,7 +26,7 @@ class ClaimController < ApplicationController
           @claim.contact = @user.email
           @claim.save
         else
-          @claim.contact = "no contact provided"
+          @claim.contact = "posted anonymously"
           @claim.save
         end
         redirect "/subjects/#{@subject.slug}"
