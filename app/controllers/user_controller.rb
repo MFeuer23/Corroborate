@@ -40,15 +40,22 @@ class UserController < ApplicationController
 
   post '/login' do
     if params[:username] != "" && params[:password] != ""
-      @user = User.find_by(username: params[:username])
-      if @user.authenticate(params[:password])
-        session[:username] = @user.username
-        redirect "/user/#{@user.id}"
+      if User.find_by(username: params[:username])
+        @user = User.find_by(username: params[:username])
+        if @user.authenticate(params[:password])
+          session[:username] = @user.username
+          redirect "/user/#{@user.id}"
+        else
+          flash[:warning] = "Incorrect password."
+          redirect "/user/login"
+        end
       else
-        redirect "/signup"
+        flash[:warning] = "Username not found."
+        redirect "/user/login"
       end
     else
-      redirect "/signup"
+      flash[:warning] = "All Fields Must Be Complete."
+      redirect "/user/login"
     end
   end
 
