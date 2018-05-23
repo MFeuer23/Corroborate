@@ -31,8 +31,8 @@ class UserController < ApplicationController
 
   get "/user/login" do
     if logged_in?
-      @user = User.find_by(username: session[:username])
-      redirect "/user/#{@user.id}"
+      session.clear
+      erb :"user/login"
     else
       erb :"user/login"
     end
