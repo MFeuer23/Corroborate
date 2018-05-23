@@ -16,7 +16,7 @@ class ClaimController < ApplicationController
     if logged_in?
       if params[:agree] == "yes" && params[:subject][:name] != "" && params[:claim][:location] != "" && params[:claim][:content] !="" && params[:user][:content] != ""
         @user = current_user
-        @subject = Subject.find_or_create_by(params[:subject].titleize)
+        @subject = Subject.find_or_create_by(name: params[:subject][:name].titleize)
         @claim = Claim.create(params[:claim])
         @subject.claims << @claim
         @subject.save
