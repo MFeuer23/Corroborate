@@ -82,20 +82,21 @@ class ClaimController < ApplicationController
     if logged_in?
       @user = current_user
       @claim = Claim.find(params[:id])
-      if params[:agree] == "yes" && params[:subject][:name] != "" && params[:claim][:location] != "" && params[:claim][:content] !="" && params[:user][:content] != ""
-        @subject = Subject.find_or_create_by(name: params[:subject][:name].titleize)
-        @claim.subject = @subject
-        @claim.location = params[:claim][:location]
-        @claim.content = params[:claim][:content]
-        @claim.save
-        if params[:user][:contact] == "yes"
-          @claim.contact = @user.email
-          @claim.save
-        else
-          @claim.contact = "no contact provided"
-          @claim.save
-        end
-        redirect "/claims/#{@claim.id}"
+      if @claim.user != @user
+        redirect "/claims"
+      end
+        if params[:agree] == "yes" && params[:subject][:name] != "" && params[:claim][:location] != "" && params[:claim][:content] !="" && params[:user][:content] != ""
+          @subject = Subject.find_or_create_by(name: params[:subject][:name].titleize)
+          @claim.update(subject: params[:claim][:subject], location: params[:claim][:location], content: params[:claim][:content])
+          if params[:user][:contact] == "yes"
+            @claim.contact = @user.email
+            @claim.save
+          else
+            @claim.contact = "no contact provided"
+            @claim.save
+          end
+          redirect "/claims/#{@claim.id}"
+
       else
           flash[:warning] = "All Fields Must Be Complete."
           redirect "/claims/#{@claim.id}/edit"
